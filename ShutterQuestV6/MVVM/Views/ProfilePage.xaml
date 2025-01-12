@@ -1,11 +1,39 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ShutterQuest.Views"
              x:Class="ShutterQuest.Views.ProfilePage"
              Title="Profile">
 
-    <StackLayout Padding="20" VerticalOptions="Center">
-        <Label Text="Profile Page" FontSize="24" HorizontalOptions="Center" />
-        <Label Text="User profile details blablabla" HorizontalOptions="Center" />
-    </StackLayout>
+    <Grid RowDefinitions="40*, 60*"
+          ColumnDefinitions="*"
+          BackgroundColor="White">
+
+        <!-- Profile Picture Section -->
+        <Grid Grid.Row="0">
+            <Image Source="default_profile_picture.png" Aspect="AspectFill"
+                   VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
+
+            <!-- User Info Overlay -->
+            <StackLayout VerticalOptions="End" Padding="20" BackgroundColor="#80000000">
+                <Label Text="{Binding DisplayNameOrUsername}" 
+                       FontSize="24"
+                       TextColor="White"
+                       FontAttributes="Bold" />
+                <Label Text="{Binding Username}" 
+                       FontSize="16"
+                       TextColor="White"
+                       Opacity="0.8" />
+                <Label Text="{Binding Email}" 
+                       FontSize="16"
+                       TextColor="White"
+                       HorizontalOptions="End" />
+            </StackLayout>
+        </Grid>
+
+        <!-- Placeholder for Additional Details -->
+        <StackLayout Grid.Row="1" Padding="20">
+            <!-- Add other user information or settings here -->
+        </StackLayout>
+    </Grid>
 </ContentPage>

@@ -1,4 +1,5 @@
 using Microsoft.Maui.Controls;
+using ShutterQuest.MVVM.ViewModels;
 
 namespace ShutterQuest.Views
 {
@@ -7,6 +8,7 @@ namespace ShutterQuest.Views
         public ProfilePage()
         {
             InitializeComponent();
+            BindingContext = new ProfileViewModel();
         }
     }
 }

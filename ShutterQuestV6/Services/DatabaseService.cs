@@ -13,8 +13,6 @@ namespace ShutterQuestV6.Services
         public DatabaseService(string dbPath)
         {
             _database = new SQLiteAsyncConnection(dbPath);
-            _database.Trace = true;
-            _database.Tracer = Console.WriteLine;
         }
 
         public async Task InitializeDatabaseAsync()

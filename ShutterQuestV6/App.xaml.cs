@@ -66,6 +66,18 @@ namespace ShutterQuestV6
             MainPage = new NavigationPage(new MainPage());
         }
 
+        public void Logout()
+        {
+            // Clear the stored user ID
+            SecureStorage.Default.Remove("loggedInUserId");
+
+            // Reset LoggedInUserId
+            LoggedInUserId = 0;
+
+            // Redirect to LoginPage
+            MainPage = new NavigationPage(new LoginPage(_databaseService));
+        }
+
         protected override Window CreateWindow(IActivationState activationState)
         {
             // Ensure a window is created with the correct MainPage
