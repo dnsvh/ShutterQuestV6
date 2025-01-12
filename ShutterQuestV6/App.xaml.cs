@@ -16,11 +16,9 @@ namespace ShutterQuestV6
         {
             InitializeComponent();
 
-            // Initialize the database service
             string dbPath = Path.Combine(FileSystem.AppDataDirectory, "shutterquest.db3");
             _databaseService = new DatabaseService(dbPath);
 
-            // Set MainPage during initialization
             InitializeApp();
         }
 
@@ -28,7 +26,6 @@ namespace ShutterQuestV6
         {
             try
             {
-                // Attempt to fetch the logged-in user
                 var userIdString = await SecureStorage.Default.GetAsync("loggedInUserId");
 
                 if (!string.IsNullOrEmpty(userIdString) && int.TryParse(userIdString, out int userId))
@@ -42,12 +39,10 @@ namespace ShutterQuestV6
                     }
                 }
 
-                // If no user is logged in, set LoginPage
                 MainPage = new NavigationPage(new LoginPage(_databaseService));
             }
             catch (Exception ex)
             {
-                // Fallback error page
                 MainPage = new ContentPage
                 {
                     Content = new Label
@@ -60,27 +55,32 @@ namespace ShutterQuestV6
             }
         }
 
-        // Set the main page for logged-in users
+       
         public void SetMainPage()
         {
-            MainPage = new NavigationPage(new MainPage());
+            MainPage = new NavigationPage(new MainPage())
+            {
+                BarBackgroundColor = Colors.Black, 
+                BarTextColor = Colors.White        
+            };
         }
+
+
+
+
 
         public void Logout()
         {
-            // Clear the stored user ID
+            // Clear the stored user ID!
             SecureStorage.Default.Remove("loggedInUserId");
 
-            // Reset LoggedInUserId
             LoggedInUserId = 0;
 
-            // Redirect to LoginPage
             MainPage = new NavigationPage(new LoginPage(_databaseService));
         }
 
         protected override Window CreateWindow(IActivationState activationState)
         {
-            // Ensure a window is created with the correct MainPage
             if (MainPage == null)
             {
                 var dbPath = Path.Combine(FileSystem.AppDataDirectory, "shutterquest.db3");

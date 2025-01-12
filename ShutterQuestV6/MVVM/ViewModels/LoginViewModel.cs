@@ -42,10 +42,8 @@ namespace ShutterQuestV6.MVVM.ViewModels
                 {
                     App.LoggedInUserId = user.Id;
 
-                    // Persist the logged-in user ID
                     await SecureStorage.Default.SetAsync("loggedInUserId", user.Id.ToString());
 
-                    // Navigate to MainPage
                     (Application.Current as App)?.SetMainPage();
                 }
                 else

@@ -1,39 +1,54 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:local="clr-namespace:ShutterQuest.Views"
              x:Class="ShutterQuest.Views.ProfilePage"
-             Title="Profile">
+             Title="Profile"
+             BackgroundColor="Black">
 
-    <Grid RowDefinitions="40*, 60*"
-          ColumnDefinitions="*"
-          BackgroundColor="White">
+    <Grid RowDefinitions="*, *">
+        <Grid>
+            <!-- Profile Picture, needs to be dynamic asp -->
+            <Image Source="default_profile_picture.png"
+                   Aspect="AspectFill"
+                   VerticalOptions="FillAndExpand"
+                   HorizontalOptions="FillAndExpand" />
 
-        <!-- Profile Picture Section -->
-        <Grid Grid.Row="0">
-            <Image Source="default_profile_picture.png" Aspect="AspectFill"
-                   VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" />
+            <BoxView VerticalOptions="End"
+                     HeightRequest="100">
+                <BoxView.Background>
+                    <LinearGradientBrush StartPoint="0,1" EndPoint="0,0">
+                        <GradientStop Color="Black" Offset="0.0" />
+                        <GradientStop Color="Transparent" Offset="1.0" />
+                    </LinearGradientBrush>
+                </BoxView.Background>
+            </BoxView>
 
-            <!-- User Info Overlay -->
-            <StackLayout VerticalOptions="End" Padding="20" BackgroundColor="#80000000">
-                <Label Text="{Binding DisplayNameOrUsername}" 
-                       FontSize="24"
-                       TextColor="White"
-                       FontAttributes="Bold" />
-                <Label Text="{Binding Username}" 
-                       FontSize="16"
-                       TextColor="White"
-                       Opacity="0.8" />
-                <Label Text="{Binding Email}" 
-                       FontSize="16"
-                       TextColor="White"
-                       HorizontalOptions="End" />
-            </StackLayout>
+            <Label Text="{Binding DisplayNameOrUsername}"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   TextColor="White"
+                   VerticalOptions="End"
+                   HorizontalOptions="Start"
+                   Margin="20,0,0,20" />
         </Grid>
 
-        <!-- Placeholder for Additional Details -->
-        <StackLayout Grid.Row="1" Padding="20">
-            <!-- Add other user information or settings here -->
+        <StackLayout Grid.Row="1" Padding="20" Spacing="10">
+            <Label Text="Username:"
+                   FontSize="16"
+                   FontAttributes="Bold"
+                   TextColor="Gray" />
+            <Label Text="{Binding Username}"
+                   FontSize="16"
+                   TextColor="White" />
+
+            <Label Text="Email:"
+                   FontSize="16"
+                   FontAttributes="Bold"
+                   TextColor="Gray" />
+            <Label Text="{Binding Email}"
+                   FontSize="16"
+                   TextColor="White" />
         </StackLayout>
     </Grid>
 </ContentPage>
+
