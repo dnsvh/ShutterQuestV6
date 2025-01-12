@@ -26,20 +26,24 @@ public class DatabaseService
         await _database.CreateTableAsync<Membership>();
     }
 
+    public async Task<int> SaveAsync<T>(T item) where T : new()
+    {
+        return await _database.InsertOrReplaceAsync(item);
+    }
+
     public async Task<List<T>> GetAllAsync<T>() where T : new()
     {
         return await _database.Table<T>().ToListAsync();
     }
 
-    public async Task<int> SaveAsync<T>(T item) where T : new()
+    public async Task<T> GetByIdAsync<T>(int id) where T : new()
     {
-        return await _database.InsertOrReplaceAsync(item);
+        return await _database.FindAsync<T>(id);
     }
 
     public async Task<int> DeleteAsync<T>(T item) where T : new()
     {
         return await _database.DeleteAsync(item);
     }
-
 }
 

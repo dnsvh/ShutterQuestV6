@@ -18,26 +18,32 @@ public class RegistrationViewModel : BaseViewModel
 
     public ICommand RegisterCommand { get; }
 
-    public RegistrationViewModel()
+    public RegistrationViewModel(DatabaseService databaseService)
     {
-        _databaseService = new DatabaseService(Path.Combine(FileSystem.AppDataDirectory, "shutterquest.db3"));
+        _databaseService = databaseService;
         RegisterCommand = new Command(async () => await RegisterAsync());
     }
 
     private async Task RegisterAsync()
     {
-        var user = new User
+        try
         {
-            Username = Username,
-            Email = Email,
-            Password = Password,
-            Points = 5,
-            IsAdmin = false
-        };
+            var newUser = new User
+            {
+                Username = Username,
+                Email = Email,
+                Password = Password,
+                Points = 5,
+                IsAdmin = false
+            };
 
-        await _databaseService.SaveAsync(user);
-        await Application.Current.MainPage.DisplayAlert("Success", "User registered", "OK");
-        await Application.Current.MainPage.Navigation.PopAsync(); // Go back to login page
+            await _databaseService.SaveAsync(newUser);
+            await Application.Current.MainPage.DisplayAlert("Success", "User registered successfully", "OK");
+            await Application.Current.MainPage.Navigation.PopAsync();
+        }
+        catch (Exception ex)
+        {
+            await Application.Current.MainPage.DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
+        }
     }
 }
-

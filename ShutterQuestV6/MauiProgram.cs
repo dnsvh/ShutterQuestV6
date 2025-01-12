@@ -1,24 +1,27 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.DependencyInjection;
+using ShutterQuestV6;
 
-namespace ShutterQuestV6
+public static class MauiProgram
 {
-    public static class MauiProgram
+    public static MauiApp CreateMauiApp()
     {
-        public static MauiApp CreateMauiApp()
-        {
-            var builder = MauiApp.CreateBuilder();
-            builder
-                .UseMauiApp<App>()
-                .ConfigureFonts(fonts =>
-                {
-                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                });
+        var builder = MauiApp.CreateBuilder();
+        builder
+            .UseMauiApp<App>()
+            .ConfigureFonts(fonts =>
+            {
+                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+            });
 
-            string dbPath = Path.Combine(FileSystem.AppDataDirectory, "shutterquest.db3");
-            builder.Services.AddSingleton<DatabaseService>(s => new DatabaseService(dbPath));
+        string dbPath = Path.Combine(FileSystem.AppDataDirectory, "shutterquest.db3");
+        var databaseService = new DatabaseService(dbPath);
 
-            return builder.Build();
-        }
+        // Initialize the database
+        Task.Run(async () => await databaseService.InitializeDatabaseAsync()).Wait();
+
+        builder.Services.AddSingleton(databaseService);
+
+        return builder.Build();
     }
 }

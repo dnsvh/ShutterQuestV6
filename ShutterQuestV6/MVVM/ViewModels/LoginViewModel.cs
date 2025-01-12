@@ -14,27 +14,32 @@ namespace ShutterQuestV6.MVVM.ViewModels
     public class LoginViewModel : BaseViewModel
     {
         private readonly DatabaseService _databaseService;
+
         public string Email { get; set; }
         public string Password { get; set; }
 
         public ICommand LoginCommand { get; }
-        public ICommand RegisterCommand { get; }
+        public ICommand NavigateToRegisterCommand { get; }
 
-        public LoginViewModel()
+        public LoginViewModel(DatabaseService databaseService)
         {
-            _databaseService = new DatabaseService(Path.Combine(FileSystem.AppDataDirectory, "shutterquest.db3"));
+            _databaseService = databaseService;
+
             LoginCommand = new Command(async () => await LoginAsync());
-            RegisterCommand = new Command(() => Application.Current.MainPage.Navigation.PushAsync(new RegistrationPage()));
+            NavigateToRegisterCommand = new Command(() =>
+            {
+                // Navigate to RegistrationPage
+                Application.Current.MainPage.Navigation.PushAsync(new RegistrationPage(_databaseService));
+            });
         }
 
         private async Task LoginAsync()
         {
-            var user = (await _databaseService.GetAllAsync<User>())
-                .FirstOrDefault(u => u.Email == Email && u.Password == Password);
+            var users = await _databaseService.GetAllAsync<User>();
+            var user = users.FirstOrDefault(u => u.Email == Email && u.Password == Password);
 
             if (user != null)
             {
-                // Navigate to the home page on successful login
                 await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
             }
             else
@@ -43,5 +48,8 @@ namespace ShutterQuestV6.MVVM.ViewModels
             }
         }
     }
+
+
+
 
 }

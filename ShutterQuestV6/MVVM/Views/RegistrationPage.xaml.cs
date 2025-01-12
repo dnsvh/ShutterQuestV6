@@ -4,10 +4,11 @@ namespace ShutterQuest.Views
 {
     public partial class RegistrationPage : ContentPage
     {
-        public RegistrationPage()
+        public RegistrationPage(DatabaseService databaseService)
         {
             InitializeComponent();
-            BindingContext = new RegistrationViewModel();
+            BindingContext = new RegistrationViewModel(databaseService);
         }
     }
 }
+

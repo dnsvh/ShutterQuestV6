@@ -5,10 +5,10 @@ namespace ShutterQuest.Views
 {
     public partial class LoginPage : ContentPage
     {
-        public LoginPage()
+        public LoginPage(DatabaseService databaseService)
         {
             InitializeComponent();
-            BindingContext = new LoginViewModel();
+            BindingContext = new LoginViewModel(databaseService);
         }
     }
 }

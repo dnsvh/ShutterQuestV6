@@ -5,12 +5,14 @@
 
     public partial class App : Application
     {
-        public App()
+        private readonly DatabaseService _databaseService;
+
+        public App(DatabaseService databaseService)
         {
             InitializeComponent();
+            _databaseService = databaseService;
 
-            // Start with the LoginPage
-            MainPage = new NavigationPage(new LoginPage());
+            MainPage = new NavigationPage(new LoginPage(_databaseService));
         }
     }
 }
