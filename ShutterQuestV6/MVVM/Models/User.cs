@@ -22,10 +22,10 @@ namespace ShutterQuestV6.MVVM.Models
         public bool IsAdmin { get; set; }
 
         [Ignore]
-        public Membership Membership { get; set; } // Navigation property
+        public Membership Membership { get; set; } // Navigation, not stored!
 
         [Ignore]
-        public List<UserAssignment> UserAssignments { get; set; } // Navigation property
+        public List<UserAssignment> UserAssignments { get; set; } // Navigation, also not stored!
     }
 
 }

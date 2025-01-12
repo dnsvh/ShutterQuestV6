@@ -22,7 +22,7 @@ namespace ShutterQuestV6.MVVM.Models
         public string Image { get; set; }
         public decimal OverallRating { get; set; }
 
-        [Ignore] // Will not be stored in SQLite but can be used programmatically
+        [Ignore] // Will not be stored in database !
         public List<Review> ReviewList { get; set; }
     }
 
