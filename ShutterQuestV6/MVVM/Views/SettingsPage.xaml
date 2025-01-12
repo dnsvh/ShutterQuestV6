@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ShutterQuest.Views.SettingsPage"
+             Title="Settings">
+
+    <StackLayout Padding="20" VerticalOptions="Center">
+        <Label Text="Settings Page" FontSize="24" HorizontalOptions="Center" />
+        <Label Text="Manage your app preferences here." HorizontalOptions="Center" />
+
+        <!-- Log Out Button -->
+        <Button Text="Log Out"
+                Command="{Binding LogOutCommand}"
+                BackgroundColor="Red"
+                TextColor="White"
+                Margin="20,40,20,0"
+                HorizontalOptions="Center" />
+    </StackLayout>
+</ContentPage>
+

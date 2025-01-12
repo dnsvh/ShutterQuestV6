@@ -40,7 +40,11 @@ namespace ShutterQuestV6.MVVM.ViewModels
 
             if (user != null)
             {
-                await Application.Current.MainPage.Navigation.PushAsync(new HomePage());
+                // Set the logged-in user ID
+                App.LoggedInUserId = user.Id;
+
+                // Set MainPage with bottom tabs
+                (Application.Current as App)?.SetMainPage();
             }
             else
             {

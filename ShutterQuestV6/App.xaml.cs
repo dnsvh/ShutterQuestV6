@@ -1,18 +1,28 @@
 ﻿namespace ShutterQuestV6
 {
     using Microsoft.Maui.Controls;
-    using ShutterQuest.Views;
+    using Microsoft.Maui.Controls.PlatformConfiguration;
+    using Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;
 
-    public partial class App : Application
+    public partial class App : Microsoft.Maui.Controls.Application
     {
-        private readonly DatabaseService _databaseService;
+        public static int LoggedInUserId { get; set; }
 
-        public App(DatabaseService databaseService)
+        public App()
         {
             InitializeComponent();
-            _databaseService = databaseService;
+            SetMainPage();
+        }
 
-            MainPage = new NavigationPage(new LoginPage(_databaseService));
+        public void SetMainPage()
+        {
+            var mainPage = new ShutterQuest.Views.MainPage();
+
+            // Ensure the TabbedPage toolbar is at the bottom for Android
+            mainPage.On<Android>().SetToolbarPlacement(ToolbarPlacement.Bottom);
+            mainPage.On<Android>().SetIsSwipePagingEnabled(false);
+
+            MainPage = mainPage;
         }
     }
 }
