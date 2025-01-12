@@ -2,18 +2,15 @@
 <TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:local="clr-namespace:ShutterQuest.Views"
-            xmlns:vm="clr-namespace:ShutterQuestV6.MVVM.ViewModels"
             x:Class="ShutterQuest.Views.MainPage"
-            Title="ShutterQuest"
-            BindingContext="{StaticResource MainViewModel}">
+            Title="ShutterQuest">
 
     <TabbedPage.ToolbarItems>
         <!-- Points Display -->
-        <ToolbarItem Text="{Binding PointsDisplay}" IconImageSource="coin_icon.png" />
+        <ToolbarItem Text="{Binding PointsDisplay}" />
     </TabbedPage.ToolbarItems>
 
-
-    <!-- Tabbed Navigation -->
+    <!-- Navigation -->
     <TabbedPage.Children>
         <local:HomePage Title="Home" IconImageSource="home_icon.png" />
         <local:ProfilePage Title="Profile" IconImageSource="profile_icon.png" />
@@ -22,5 +19,9 @@
         <local:SettingsPage Title="Settings" IconImageSource="settings_icon.png" />
     </TabbedPage.Children>
 </TabbedPage>
+
+
+
+
 
 

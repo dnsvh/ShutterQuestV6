@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Microsoft.Maui.Controls;
 using MvvmHelpers;
+using Microsoft.Maui.Storage;
 using ShutterQuest.Views;
 using ShutterQuestV6.MVVM.Models;
+using ShutterQuestV6.Services;
 
 namespace ShutterQuestV6.MVVM.ViewModels
 {
@@ -28,32 +27,32 @@ namespace ShutterQuestV6.MVVM.ViewModels
             LoginCommand = new Command(async () => await LoginAsync());
             NavigateToRegisterCommand = new Command(() =>
             {
-                // Navigate to RegistrationPage
                 Application.Current.MainPage.Navigation.PushAsync(new RegistrationPage(_databaseService));
             });
         }
 
         private async Task LoginAsync()
         {
-            var users = await _databaseService.GetAllAsync<User>();
-            var user = users.FirstOrDefault(u => u.Email == Email && u.Password == Password);
-
-            if (user != null)
+            try
             {
-                // Set the logged-in user ID
-                App.LoggedInUserId = user.Id;
+                var users = await _databaseService.GetAllAsync<User>();
+                var user = users.FirstOrDefault(u => u.Email == Email && u.Password == Password);
 
-                // Set MainPage with bottom tabs
-                (Application.Current as App)?.SetMainPage();
+                if (user != null)
+                {
+                    await SecureStorage.Default.SetAsync("loggedInUserId", user.Id.ToString());
+
+                    (Application.Current as App)?.SetMainPage();
+                }
+                else
+                {
+                    await Application.Current.MainPage.DisplayAlert("Error", "Invalid credentials", "OK");
+                }
             }
-            else
+            catch (Exception ex)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "Invalid credentials", "OK");
+                await Application.Current.MainPage.DisplayAlert("Error", $"An error occurred: {ex.Message}", "OK");
             }
         }
     }
-
-
-
-
 }

@@ -1,4 +1,5 @@
 using Microsoft.Maui.Controls;
+using ShutterQuestV6.MVVM.ViewModels;
 
 namespace ShutterQuest.Views
 {

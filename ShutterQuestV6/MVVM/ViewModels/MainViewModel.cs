@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Maui.Controls;
 using ShutterQuestV6;
 using ShutterQuestV6.MVVM.Models;
+using ShutterQuestV6.Services;
 
 public class MainViewModel : INotifyPropertyChanged
 {
@@ -28,15 +29,32 @@ public class MainViewModel : INotifyPropertyChanged
 
     private async Task LoadUserPointsAsync()
     {
-        // Use the static property from App to get the logged-in user ID
-        var userId = App.LoggedInUserId;
+        try
+        {
+            var userId = App.LoggedInUserId;
 
-        // Fetch user from the database
-        var user = await _databaseService.GetByIdAsync<User>(userId);
+            var user = await _databaseService.GetByIdAsync<User>(userId);
 
-        // Update PointsDisplay
-        PointsDisplay = $"{user.Points} [icon]";
+            if (user != null)
+            {
+                var points = user.Points;
+
+                PointsDisplay = $"{points} C";
+
+                System.Diagnostics.Debug.WriteLine($"User Points: {PointsDisplay}");
+            }
+            else
+            {
+                PointsDisplay = "0 C"; 
+            }
+        }
+        catch (Exception ex)
+        {
+            PointsDisplay = "Error fetching points";
+            System.Diagnostics.Debug.WriteLine($"Error: {ex.Message}");
+        }
     }
+
 
     public event PropertyChangedEventHandler PropertyChanged;
 
@@ -44,5 +62,5 @@ public class MainViewModel : INotifyPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
-}
 
+}

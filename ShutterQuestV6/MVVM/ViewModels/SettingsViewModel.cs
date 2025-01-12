@@ -1,23 +1,28 @@
-﻿using System.Windows.Input;
+﻿using System.IO;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Microsoft.Maui.Controls;
-using ShutterQuestV6;
+using Microsoft.Maui.Storage;
+using ShutterQuest.Views;
+using ShutterQuestV6.Services;
 
-public class SettingsViewModel
+namespace ShutterQuestV6.MVVM.ViewModels
 {
-    public ICommand LogOutCommand { get; }
-
-    public SettingsViewModel()
+    public class SettingsViewModel
     {
-        LogOutCommand = new Command(LogOut);
-    }
+        public ICommand LogOutCommand { get; }
 
-    private void LogOut()
-    {
-        // Reset logged-in user ID
-        App.LoggedInUserId = 0;
+        public SettingsViewModel()
+        {
+            LogOutCommand = new Command(async () => await LogOutAsync());
+        }
 
-        // Navigate back to the LoginPage
-        var databaseService = new DatabaseService(Path.Combine(FileSystem.AppDataDirectory, "shutterquest.db3"));
-        Application.Current.MainPage = new NavigationPage(new ShutterQuest.Views.LoginPage(databaseService));
+        private async Task LogOutAsync()
+        {
+            SecureStorage.Default.Remove("loggedInUserId");
+
+            var databaseService = new DatabaseService(Path.Combine(FileSystem.AppDataDirectory, "shutterquest.db3"));
+            Application.Current.MainPage = new NavigationPage(new LoginPage(databaseService));
+        }
     }
 }

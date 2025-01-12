@@ -15,9 +15,8 @@ public static class MauiProgram
             });
 
         string dbPath = Path.Combine(FileSystem.AppDataDirectory, "shutterquest.db3");
-        var databaseService = new DatabaseService(dbPath);
+        var databaseService = new ShutterQuestV6.Services.DatabaseService(dbPath);
 
-        // Initialize the database
         Task.Run(async () => await databaseService.InitializeDatabaseAsync()).Wait();
 
         builder.Services.AddSingleton(databaseService);
