@@ -2,15 +2,23 @@
 <TabbedPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:local="clr-namespace:ShutterQuest.Views"
-            x:Class="ShutterQuest.Views.MainPage"
-            Title="ShutterQuest">
+            x:Class="ShutterQuest.Views.MainPage">
 
-    <!-- Toolbar Items -->
+
     <TabbedPage.ToolbarItems>
-        <ToolbarItem Text="{Binding PointsDisplay}" />
+
+        <ToolbarItem IconImageSource="shutterquest_logo.png"
+                     Order="Primary"
+                     Priority="0"
+                     IsEnabled="False" />
+
+
+        <ToolbarItem Text="{Binding PointsDisplay}"
+                     Order="Primary"
+                     Priority="1" />
     </TabbedPage.ToolbarItems>
 
-    <!-- Pages -->
+
     <TabbedPage.Children>
         <local:HomePage Title="Home" IconImageSource="home_icon.png" />
         <local:ProfilePage Title="Profile" IconImageSource="profile_icon.png" />

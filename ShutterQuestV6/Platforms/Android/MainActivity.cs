@@ -14,6 +14,9 @@ namespace ShutterQuestV6
             base.OnCreate(savedInstanceState);
 
             Window.SetStatusBarColor(Android.Graphics.Color.Black);
+
+
+
         }
     }
 }

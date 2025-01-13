@@ -26,107 +26,12 @@ namespace ShutterQuestV6.Services
             await _database.CreateTableAsync<UserAssignment>();
             await _database.CreateTableAsync<Membership>();
 
-            await AddDefaultAssignmentsAsync();
+
         }
 
-        private async Task AddDefaultAssignmentsAsync()
-        {
-            var existingAssignments = await _database.Table<Assignment>().ToListAsync();
-            if (existingAssignments.Count > 0) return;
+       
 
-            var assignments = new List<Assignment>
-            {
-                new Assignment
-                {
-                    Title = "Explore Nature",
-                    Description = "Capture the beauty of a natural landscape.",
-                    OpenTime = DateTime.Now,
-                    CloseTime = DateTime.Now.AddDays(7),
-                    Theme = "Natuur",
-                    CreatedById = 1 
-                },
-                new Assignment
-                {
-                    Title = "Culinary Creations",
-                    Description = "Show off a delicious dish!",
-                    OpenTime = DateTime.Now,
-                    CloseTime = DateTime.Now.AddDays(7),
-                    Theme = "Culinair",
-                    CreatedById = 1
-                },
-                new Assignment
-                {
-                    Title = "Portrait Perfection",
-                    Description = "Take a portrait that tells a story.",
-                    OpenTime = DateTime.Now,
-                    CloseTime = DateTime.Now.AddDays(7),
-                    Theme = "Personen",
-                    CreatedById = 1 
-                },
-                new Assignment
-                {
-                    Title = "Miscellaneous Masterpiece",
-                    Description = "Submit any photo you love.",
-                    OpenTime = DateTime.Now,
-                    CloseTime = DateTime.Now.AddDays(7),
-                    Theme = "Overige",
-                    CreatedById = 1 
-                }
-            };
-
-            await _database.InsertAllAsync(assignments);
-        }
-
-        public async Task AssignDefaultAssignmentToUser(string email, string assignmentTitle)
-        {
-            try
-            {
-                // Fetch the user by email
-                var user = await _database.Table<User>().FirstOrDefaultAsync(u => u.Email == email);
-                if (user == null)
-                {
-                    System.Diagnostics.Debug.WriteLine($"User with email {email} not found.");
-                    return;
-                }
-
-                // Fetch the assignment by title
-                var assignment = await _database.Table<Assignment>().FirstOrDefaultAsync(a => a.Title == assignmentTitle);
-                if (assignment == null)
-                {
-                    System.Diagnostics.Debug.WriteLine($"Assignment with title '{assignmentTitle}' not found.");
-                    return;
-                }
-
-                // Check if the user already has this assignment
-                var existingUserAssignment = await _database.Table<UserAssignment>()
-                    .FirstOrDefaultAsync(ua => ua.UserId == user.Id && ua.AssignmentId == assignment.Id);
-
-                if (existingUserAssignment != null)
-                {
-                    System.Diagnostics.Debug.WriteLine($"User {email} already has the assignment '{assignmentTitle}'.");
-                    return;
-                }
-
-                // Create a new UserAssignment entry
-                var userAssignment = new UserAssignment
-                {
-                    UserId = user.Id,
-                    AssignmentId = assignment.Id,
-                    StartDate = DateTime.Now,
-                    IsCompleted = false,
-                    PointsEarned = 0
-                };
-
-                await _database.InsertAsync(userAssignment);
-
-                System.Diagnostics.Debug.WriteLine($"Assigned assignment '{assignmentTitle}' to user '{email}'.");
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Error assigning assignment to user: {ex.Message}");
-            }
-        }
-
+       
 
         public async Task<int> InsertAsync<T>(T item) where T : new()
         {

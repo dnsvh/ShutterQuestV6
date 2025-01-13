@@ -59,14 +59,6 @@
 
 
         <StackLayout Grid.Row="1" Padding="15" Spacing="10">
-            <Label Text="Username:"
-                   FontSize="16"
-                   FontAttributes="Bold"
-                   TextColor="Gray" />
-            <Label Text="{Binding Username}"
-                   FontSize="16"
-                   TextColor="White" />
-
             <Label Text="Email:"
                    FontSize="16"
                    FontAttributes="Bold"
@@ -74,6 +66,10 @@
             <Label Text="{Binding Email}"
                    FontSize="16"
                    TextColor="White" />
+            <Label Text="Posts:"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    TextColor="Gray" />     
         </StackLayout>
     </Grid>
 </ContentPage>
