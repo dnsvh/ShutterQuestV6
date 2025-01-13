@@ -5,7 +5,7 @@
              Title="Shop">
 
     <StackLayout Padding="20" VerticalOptions="Center">
-        <Label Text="Shop Page" FontSize="24" HorizontalOptions="Center" />
-        <Label Text="This is where users can buy points or other items." HorizontalOptions="Center" />
+        <Label Text="Shop Pagina" FontSize="24" HorizontalOptions="Center" />
+        <Label Text="work in progress :)" HorizontalOptions="Center" />
     </StackLayout>
 </ContentPage>

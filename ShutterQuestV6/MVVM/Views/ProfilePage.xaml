@@ -59,7 +59,7 @@
 
 
         <StackLayout Grid.Row="1" Padding="15" Spacing="10">
-            <Label Text="Email:"
+            <Label Text="E-mail:"
                    FontSize="16"
                    FontAttributes="Bold"
                    TextColor="Gray" />

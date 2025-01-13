@@ -2,12 +2,62 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ShutterQuest.Views.RegistrationPage"
-             Title="Register">
+             Title=""
+             BackgroundColor="Black">
 
-    <StackLayout Padding="20" VerticalOptions="Center">
-        <Entry x:Name="UsernameEntry" Placeholder="Username" Text="{Binding Username}" />
-        <Entry x:Name="EmailEntry" Placeholder="Email" Text="{Binding Email}" />
-        <Entry x:Name="PasswordEntry" Placeholder="Password" IsPassword="True" Text="{Binding Password}" />
-        <Button Text="Register" Command="{Binding RegisterCommand}" />
+    <StackLayout Padding="30" VerticalOptions="Start" Spacing="20">
+
+        <!-- Logo -->
+        <Image Source="shutterquest_logo.png"
+               HorizontalOptions="Center"
+               HeightRequest="150"
+               WidthRequest="150"
+               Aspect="AspectFit" />
+
+        <!-- Header -->
+        <Label Text="Maak een account aan!" 
+               HorizontalOptions="Center"
+               FontSize="Large"
+               TextColor="White" />
+
+        <!-- Username Entry -->
+        <Entry Placeholder="Gebruikersnaam"
+               Text="{Binding Username}"
+               FontSize="16"
+               TextColor="White"
+               PlaceholderColor="Gray"
+               BackgroundColor="#1F1F1F"
+               HeightRequest="50"
+               Margin="0,10,0,0" />
+
+        <!-- Email Entry -->
+        <Entry Placeholder="E-mail"
+               Text="{Binding Email}"
+               FontSize="16"
+               TextColor="White"
+               PlaceholderColor="Gray"
+               BackgroundColor="#1F1F1F"
+               HeightRequest="50"
+               Margin="0,10,0,0" />
+
+        <!-- Password Entry -->
+        <Entry Placeholder="Wachtwoord"
+               IsPassword="True"
+               Text="{Binding Password}"
+               FontSize="16"
+               TextColor="White"
+               PlaceholderColor="Gray"
+               BackgroundColor="#1F1F1F"
+               HeightRequest="50"
+               Margin="0,10,0,20" />
+
+        <!-- Register Button -->
+        <Button Text="Registreer"
+                Command="{Binding RegisterCommand}"
+                BackgroundColor="#8da9f7"
+                TextColor="White"
+                CornerRadius="10"
+                HeightRequest="50"
+                FontAttributes="Bold" />
     </StackLayout>
 </ContentPage>

@@ -7,15 +7,15 @@
 
     <Grid RowDefinitions="Auto, Auto, Auto, Auto, *" Padding="20">
 
-        <!-- Page Header -->
-        <Label Text="Your quest:" 
+     
+        <Label Text="Jouw quest:" 
                FontSize="24" 
                FontAttributes="Bold" 
                TextColor="White" 
                Margin="0,0,0,10" 
                HorizontalOptions="Start" />
 
-        <!-- Upcoming Assignment Box -->
+  
         <Frame Grid.Row="1" BackgroundColor="#1F1F1F" CornerRadius="10" Padding="15" Margin="0,10,0,10">
             <VerticalStackLayout Spacing="5">
                 <Label Text="{Binding UpcomingAssignment.Title}" 
@@ -39,7 +39,7 @@
                        TextColor="LightGray" 
                        IsVisible="{Binding HasUpcomingAssignment}" />
 
-                <!-- No Assignment Found Message -->
+
                 <Label Text="No assignment found" 
                        FontSize="14" 
                        TextColor="Gray" 
@@ -49,7 +49,7 @@
             </VerticalStackLayout>
         </Frame>
 
-        <!-- Theme Filter Buttons -->
+     
         <StackLayout Grid.Row="2" Orientation="Horizontal" HorizontalOptions="Center" Spacing="10" Margin="0,20,0,10">
             <Button Text="Natuur" BackgroundColor="#87de8d" Command="{Binding FilterByThemeCommand}" CommandParameter="Natuur" />
             <Button Text="Culinair" BackgroundColor="#e67a7a" Command="{Binding FilterByThemeCommand}" CommandParameter="Culinair" />
@@ -58,14 +58,14 @@
         </StackLayout>
 
         <Button Grid.Row="3" 
-                Text="Explore Inspiration" 
+                Text="Inspiratie nodig? Klik hier!" 
                 BackgroundColor="#171717" 
                 TextColor="White" 
                 Command="{Binding NavigateToInspirationCommand}" 
                 Margin="0,20,0,10" />
 
 
-        <!-- Filtered Assignments -->
+    
         <ScrollView Grid.Row="4" Margin="0,20,0,0">
             <StackLayout Spacing="10">
                 <CollectionView ItemsSource="{Binding FilteredAssignments}" IsVisible="{Binding HasFilteredAssignments}">

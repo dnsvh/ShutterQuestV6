@@ -14,7 +14,7 @@
                    TextColor="White"
                    HorizontalOptions="Start" />
 
-            <Label Text="My feed:"
+            <Label Text="Jouw feed:"
                    FontSize="18"
                    FontAttributes="Bold"
                    TextColor="White"

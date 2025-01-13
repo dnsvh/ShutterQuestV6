@@ -21,9 +21,9 @@
 
     <TabbedPage.Children>
         <local:HomePage Title="Home" IconImageSource="home_icon.png" />
-        <local:ProfilePage Title="Profile" IconImageSource="profile_icon.png" />
-        <local:ChallengePage Title="Challenges" IconImageSource="challenge_icon.png" />
+        <local:ProfilePage Title="Profiel" IconImageSource="profile_icon.png" />
+        <local:ChallengePage Title="Quests" IconImageSource="challenge_icon.png" />
         <local:ShopPage Title="Shop" IconImageSource="shop_icon.png" />
-        <local:SettingsPage Title="Settings" IconImageSource="settings_icon.png" />
+        <local:SettingsPage Title="Instellingen" IconImageSource="settings_icon.png" />
     </TabbedPage.Children>
 </TabbedPage>

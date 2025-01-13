@@ -62,16 +62,16 @@ namespace ShutterQuestV6.MVVM.ViewModels
 
                 if (user != null)
                 {
-                    WelcomeMessage = $"Welcome back, {user.DisplayName}!";
+                    WelcomeMessage = $"Welkom terug, {user.DisplayName}!";
                 }
                 else
                 {
-                    WelcomeMessage = "Welcome back!";
+                    WelcomeMessage = "Welkom terug!";
                 }
             }
             catch (Exception ex)
             {
-                WelcomeMessage = "Welcome back!";
+                WelcomeMessage = "Welkom terug!";
                 System.Diagnostics.Debug.WriteLine($"Error loading welcome message: {ex.Message}");
             }
         }

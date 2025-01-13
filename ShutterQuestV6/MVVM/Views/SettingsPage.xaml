@@ -4,16 +4,16 @@
              x:Class="ShutterQuest.Views.SettingsPage"
              Title="Settings">
 
-    <StackLayout Padding="20" VerticalOptions="Center">
-        <Label Text="Settings Page" FontSize="24" HorizontalOptions="Center" />
-        <Label Text="Manage your app preferences here." HorizontalOptions="Center" />
+    <StackLayout Padding="20" VerticalOptions="Start">
+        <Label Text="Instellingen" FontSize="24" HorizontalOptions="Start" />
+        <Label Text="Moet nog worden uitgebreid" HorizontalOptions="Start" />
 
         <!-- Log Out Button -->
-        <Button Text="Log Out"
+        <Button Text="Log uit"
                 Command="{Binding LogOutCommand}"
-                BackgroundColor="Red"
+                BackgroundColor="#e67a7a"
                 TextColor="White"
-                Margin="20,40,20,0"
+                Margin="10,600,20,0"
                 HorizontalOptions="Center" />
     </StackLayout>
 </ContentPage>
