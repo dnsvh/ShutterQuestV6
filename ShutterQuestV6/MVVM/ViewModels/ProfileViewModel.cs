@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using System.Windows.Input;
+using Microsoft.Maui.Controls;
 using ShutterQuestV6.Services;
-using ShutterQuestV6;
 using ShutterQuestV6.MVVM.Models;
-
+using ShutterQuestV6;
 
 namespace ShutterQuest.MVVM.ViewModels
 {
@@ -16,6 +17,8 @@ namespace ShutterQuest.MVVM.ViewModels
         {
             _databaseService = new DatabaseService(Path.Combine(FileSystem.AppDataDirectory, "shutterquest.db3"));
             LoadUserDataAsync();
+
+            EditDisplayNameCommand = new Command(async () => await EditDisplayNameAsync());
         }
 
         private string _username;
@@ -26,8 +29,11 @@ namespace ShutterQuest.MVVM.ViewModels
             {
                 _username = value;
                 OnPropertyChanged();
+                OnPropertyChanged(nameof(UsernameWithAt)); // Trigger update for the formatted username
             }
         }
+
+        public string UsernameWithAt => $"@{Username}";
 
         private string _displayName;
         public string DisplayName
@@ -53,6 +59,8 @@ namespace ShutterQuest.MVVM.ViewModels
 
         public string DisplayNameOrUsername => string.IsNullOrEmpty(DisplayName) ? Username : DisplayName;
 
+        public ICommand EditDisplayNameCommand { get; }
+
         private async void LoadUserDataAsync()
         {
             try
@@ -69,8 +77,31 @@ namespace ShutterQuest.MVVM.ViewModels
             }
             catch (Exception ex)
             {
-                // Handle error (e.g., log it)
                 System.Diagnostics.Debug.WriteLine($"Error loading user data: {ex.Message}");
+            }
+        }
+
+        private async Task EditDisplayNameAsync()
+        {
+            string newDisplayName = await Application.Current.MainPage.DisplayPromptAsync(
+                "Edit Display Name",
+                "Enter a new display name (max 20 characters):",
+                "Save",
+                "Cancel",
+                initialValue: DisplayName,
+                maxLength: 20);
+
+            if (!string.IsNullOrEmpty(newDisplayName))
+            {
+                DisplayName = newDisplayName;
+
+                // Update the database
+                var user = await _databaseService.GetByIdAsync<User>(App.LoggedInUserId);
+                if (user != null)
+                {
+                    user.DisplayName = newDisplayName;
+                    await _databaseService.UpdateAsync(user);
+                }
             }
         }
 

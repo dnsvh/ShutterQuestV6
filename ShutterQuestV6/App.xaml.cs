@@ -26,6 +26,9 @@ namespace ShutterQuestV6
         {
             try
             {
+                // Initialize the database, including default assignments
+                await _databaseService.InitializeDatabaseAsync();
+
                 var userIdString = await SecureStorage.Default.GetAsync("loggedInUserId");
 
                 if (!string.IsNullOrEmpty(userIdString) && int.TryParse(userIdString, out int userId))
@@ -34,6 +37,7 @@ namespace ShutterQuestV6
                     if (user != null)
                     {
                         LoggedInUserId = userId;
+                        System.Diagnostics.Debug.WriteLine($"LoggedInUserId set to: {LoggedInUserId}");
                         SetMainPage();
                         return;
                     }
@@ -55,27 +59,19 @@ namespace ShutterQuestV6
             }
         }
 
-       
         public void SetMainPage()
         {
             MainPage = new NavigationPage(new MainPage())
             {
-                BarBackgroundColor = Colors.Black, 
-                BarTextColor = Colors.White        
+                BarBackgroundColor = Colors.Black,
+                BarTextColor = Colors.White
             };
         }
 
-
-
-
-
         public void Logout()
         {
-            // Clear the stored user ID!
             SecureStorage.Default.Remove("loggedInUserId");
-
             LoggedInUserId = 0;
-
             MainPage = new NavigationPage(new LoginPage(_databaseService));
         }
 

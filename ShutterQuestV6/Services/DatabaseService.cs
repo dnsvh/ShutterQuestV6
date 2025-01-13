@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using SQLite;
 using ShutterQuestV6.MVVM.Models;
@@ -23,6 +25,56 @@ namespace ShutterQuestV6.Services
             await _database.CreateTableAsync<Review>();
             await _database.CreateTableAsync<UserAssignment>();
             await _database.CreateTableAsync<Membership>();
+
+            await AddDefaultAssignmentsAsync();
+        }
+
+        private async Task AddDefaultAssignmentsAsync()
+        {
+            var existingAssignments = await _database.Table<Assignment>().ToListAsync();
+            if (existingAssignments.Count > 0) return;
+
+            var assignments = new List<Assignment>
+            {
+                new Assignment
+                {
+                    Title = "Explore Nature",
+                    Description = "Capture the beauty of a natural landscape.",
+                    OpenTime = DateTime.Now,
+                    CloseTime = DateTime.Now.AddDays(7),
+                    Theme = "Natuur",
+                    CreatedById = 1 
+                },
+                new Assignment
+                {
+                    Title = "Culinary Creations",
+                    Description = "Show off a delicious dish!",
+                    OpenTime = DateTime.Now,
+                    CloseTime = DateTime.Now.AddDays(7),
+                    Theme = "Culinair",
+                    CreatedById = 1
+                },
+                new Assignment
+                {
+                    Title = "Portrait Perfection",
+                    Description = "Take a portrait that tells a story.",
+                    OpenTime = DateTime.Now,
+                    CloseTime = DateTime.Now.AddDays(7),
+                    Theme = "Personen",
+                    CreatedById = 1 
+                },
+                new Assignment
+                {
+                    Title = "Miscellaneous Masterpiece",
+                    Description = "Submit any photo you love.",
+                    OpenTime = DateTime.Now,
+                    CloseTime = DateTime.Now.AddDays(7),
+                    Theme = "Overige",
+                    CreatedById = 1 
+                }
+            };
+
+            await _database.InsertAllAsync(assignments);
         }
 
         public async Task<int> InsertAsync<T>(T item) where T : new()

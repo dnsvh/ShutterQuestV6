@@ -6,12 +6,14 @@
              BackgroundColor="Black">
 
     <Grid RowDefinitions="*, *">
+
         <Grid>
-            <!-- Profile Picture, needs to be dynamic asp -->
+
             <Image Source="default_profile_picture.png"
                    Aspect="AspectFill"
                    VerticalOptions="FillAndExpand"
                    HorizontalOptions="FillAndExpand" />
+
 
             <BoxView VerticalOptions="End"
                      HeightRequest="100">
@@ -23,16 +25,40 @@
                 </BoxView.Background>
             </BoxView>
 
-            <Label Text="{Binding DisplayNameOrUsername}"
-                   FontSize="24"
-                   FontAttributes="Bold"
-                   TextColor="White"
-                   VerticalOptions="End"
-                   HorizontalOptions="Start"
-                   Margin="20,0,0,20" />
+
+            <StackLayout VerticalOptions="End"
+                         HorizontalOptions="Start"
+                         Margin="15,0,0,10"
+                         Spacing="-10">
+
+                <StackLayout Orientation="Horizontal" Spacing="5">
+                    <Label Text="{Binding DisplayNameOrUsername}"
+                           FontSize="24"
+                           FontAttributes="Bold"
+                           TextColor="White">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding EditDisplayNameCommand}" />
+                        </Label.GestureRecognizers>
+                    </Label>
+
+
+                    <ImageButton Source="pencil_icon.png"
+                                 BackgroundColor="Transparent"
+                                 HeightRequest="16"
+                                 WidthRequest="16"
+                                 Command="{Binding EditDisplayNameCommand}" />
+                </StackLayout>
+
+
+                <Label Text="{Binding UsernameWithAt}"
+                       FontSize="16"
+                       TextColor="White"
+                       Opacity="0.8" />
+            </StackLayout>
         </Grid>
 
-        <StackLayout Grid.Row="1" Padding="20" Spacing="10">
+
+        <StackLayout Grid.Row="1" Padding="15" Spacing="10">
             <Label Text="Username:"
                    FontSize="16"
                    FontAttributes="Bold"
@@ -51,4 +77,3 @@
         </StackLayout>
     </Grid>
 </ContentPage>
-

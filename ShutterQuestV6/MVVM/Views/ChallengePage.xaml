@@ -2,10 +2,80 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ShutterQuest.Views.ChallengePage"
-             Title="Challenges">
+             Title="Challenges"
+             BackgroundColor="Black">
 
-    <StackLayout Padding="20" VerticalOptions="Center">
-        <Label Text="Challenge Page" FontSize="24" HorizontalOptions="Center" />
-        <Label Text="Here users can view and join challenges!!!!" HorizontalOptions="Center" />
-    </StackLayout>
+    <Grid RowDefinitions="Auto, Auto, Auto, *" Padding="20">
+        <!-- Page Header -->
+        <Label Text="Your quest:" 
+               FontSize="24" 
+               FontAttributes="Bold" 
+               TextColor="White" 
+               Margin="0,0,0,10" 
+               HorizontalOptions="Start" />
+
+        <!-- Upcoming Assignment Box -->
+        <Frame Grid.Row="1" BackgroundColor="#1F1F1F" CornerRadius="10" Padding="15" Margin="0,10,0,10">
+            <VerticalStackLayout Spacing="5">
+                <Label Text="{Binding UpcomingAssignment.Title}" 
+                       FontSize="18" 
+                       FontAttributes="Bold" 
+                       TextColor="White" 
+                       IsVisible="{Binding HasUpcomingAssignment}" />
+
+                <Label Text="{Binding UpcomingAssignment.Description}" 
+                       FontSize="14" 
+                       TextColor="Gray" 
+                       IsVisible="{Binding HasUpcomingAssignment}" />
+
+                <Label Text="{Binding UpcomingAssignment.OpenTime, StringFormat='Opens: {0:g}'}" 
+                       FontSize="12" 
+                       TextColor="LightGray" 
+                       IsVisible="{Binding HasUpcomingAssignment}" />
+
+                <Label Text="{Binding UpcomingAssignment.CloseTime, StringFormat='Closes: {0:g}'}" 
+                       FontSize="12" 
+                       TextColor="LightGray" 
+                       IsVisible="{Binding HasUpcomingAssignment}" />
+
+                <!-- No Assignment Found Message -->
+                <Label Text="No assignment found" 
+                       FontSize="14" 
+                       TextColor="Gray" 
+                       HorizontalOptions="Center" 
+                       VerticalOptions="Center" 
+                       IsVisible="{Binding HasNoUpcomingAssignment}" />
+            </VerticalStackLayout>
+        </Frame>
+
+        <!-- Theme Filter Buttons -->
+        <StackLayout Grid.Row="2" Orientation="Horizontal" HorizontalOptions="Center" Spacing="10" Margin="0,20,0,10">
+            <Button Text="Natuur" BackgroundColor="#87de8d" Command="{Binding FilterByThemeCommand}" CommandParameter="Natuur" />
+            <Button Text="Culinair" BackgroundColor="#e67a7a" Command="{Binding FilterByThemeCommand}" CommandParameter="Culinair" />
+            <Button Text="Personen" BackgroundColor="#8da9f7" Command="{Binding FilterByThemeCommand}" CommandParameter="Personen" />
+            <Button Text="Overige" BackgroundColor="#f2f78d" Command="{Binding FilterByThemeCommand}" CommandParameter="Overige" />
+        </StackLayout>
+
+        <!-- Filtered Assignments -->
+        <ScrollView Grid.Row="3" Margin="0,20,0,0">
+            <StackLayout Spacing="10">
+                <CollectionView ItemsSource="{Binding FilteredAssignments}" IsVisible="{Binding HasFilteredAssignments}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame BackgroundColor="#2F2F2F" CornerRadius="10" Padding="15" Margin="10">
+                                <VerticalStackLayout Spacing="5">
+                                    <Label Text="{Binding Title}" FontSize="18" FontAttributes="Bold" TextColor="White" />
+                                    <Label Text="{Binding Description}" FontSize="14" TextColor="Gray" />
+                                    <Label Text="{Binding OpenTime, StringFormat='Opens: {0:g}'}" FontSize="12" TextColor="LightGray" />
+                                    <Label Text="{Binding CloseTime, StringFormat='Closes: {0:g}'}" FontSize="12" TextColor="LightGray" />
+                                </VerticalStackLayout>
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <Label Text="No assignments available." FontSize="14" TextColor="Gray" HorizontalOptions="Center" VerticalOptions="Center" IsVisible="{Binding HasNoFilteredAssignments}" />
+            </StackLayout>
+        </ScrollView>
+    </Grid>
 </ContentPage>
