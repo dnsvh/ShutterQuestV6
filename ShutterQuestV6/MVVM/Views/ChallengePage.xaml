@@ -5,7 +5,8 @@
              Title="Challenges"
              BackgroundColor="Black">
 
-    <Grid RowDefinitions="Auto, Auto, Auto, *" Padding="20">
+    <Grid RowDefinitions="Auto, Auto, Auto, Auto, *" Padding="20">
+
         <!-- Page Header -->
         <Label Text="Your quest:" 
                FontSize="24" 
@@ -56,8 +57,16 @@
             <Button Text="Overige" BackgroundColor="#f2f78d" Command="{Binding FilterByThemeCommand}" CommandParameter="Overige" />
         </StackLayout>
 
+        <Button Grid.Row="3" 
+                Text="Explore Inspiration" 
+                BackgroundColor="#171717" 
+                TextColor="White" 
+                Command="{Binding NavigateToInspirationCommand}" 
+                Margin="0,20,0,10" />
+
+
         <!-- Filtered Assignments -->
-        <ScrollView Grid.Row="3" Margin="0,20,0,0">
+        <ScrollView Grid.Row="4" Margin="0,20,0,0">
             <StackLayout Spacing="10">
                 <CollectionView ItemsSource="{Binding FilteredAssignments}" IsVisible="{Binding HasFilteredAssignments}">
                     <CollectionView.ItemTemplate>

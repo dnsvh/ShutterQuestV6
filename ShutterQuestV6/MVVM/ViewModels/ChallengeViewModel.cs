@@ -23,6 +23,7 @@ namespace ShutterQuestV6.MVVM.ViewModels
             FilterByThemeCommand = new Command<string>(FilterByTheme);
             EnterAssignmentCommand = new Command<int>(EnterAssignmentAsync);
             NavigateMembershipActionCommand = new Command(NavigateBasedOnMembership);
+            NavigateToInspirationCommand = new Command(NavigateToInspiration);
         }
 
         // Properties for upcoming assignment
@@ -53,6 +54,7 @@ namespace ShutterQuestV6.MVVM.ViewModels
         public ICommand FilterByThemeCommand { get; }
         public ICommand EnterAssignmentCommand { get; }
         public ICommand NavigateMembershipActionCommand { get; }
+        public ICommand NavigateToInspirationCommand { get; }
 
         private async void LoadAssignmentsAsync()
         {
@@ -106,7 +108,6 @@ namespace ShutterQuestV6.MVVM.ViewModels
                 OnPropertyChanged(nameof(HasNoUpcomingAssignment));
             }
         }
-
 
         private void FilterByTheme(string theme)
         {
@@ -171,5 +172,23 @@ namespace ShutterQuestV6.MVVM.ViewModels
                 System.Diagnostics.Debug.WriteLine($"Error in NavigateBasedOnMembership: {ex.Message}");
             }
         }
+
+        private async void NavigateToInspiration()
+        {
+            try
+            {
+                // Default category for inspiration
+                string defaultCategory = "nature";
+                await Application.Current.MainPage.Navigation.PushAsync(new InspirationPage(defaultCategory));
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error navigating to InspirationPage: {ex.Message}");
+            }
+        }
+
+
+
+
     }
 }

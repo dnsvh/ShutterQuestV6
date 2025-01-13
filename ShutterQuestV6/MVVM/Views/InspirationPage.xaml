@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ShutterQuest.Views.InspirationPage"
+             Title="Inspiration"
+             BackgroundColor="Black">
+
+    <Grid RowDefinitions="Auto, *" Padding="20">
+        <!-- Category Buttons -->
+        <StackLayout Grid.Row="0" Orientation="Horizontal" HorizontalOptions="Center" Spacing="10" Margin="0,20,0,10">
+            <Button Text="Natuur" BackgroundColor="#87de8d" Command="{Binding LoadCategoryCommand}" CommandParameter="nature" />
+            <Button Text="Culinair" BackgroundColor="#e67a7a" Command="{Binding LoadCategoryCommand}" CommandParameter="food" />
+            <Button Text="Personen" BackgroundColor="#8da9f7" Command="{Binding LoadCategoryCommand}" CommandParameter="people" />
+        </StackLayout>
+
+        <!-- Display Photos -->
+        <ScrollView Grid.Row="1">
+            <StackLayout Spacing="10" Padding="10">
+                <CollectionView ItemsSource="{Binding Photos}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Frame BackgroundColor="#1F1F1F" CornerRadius="10" Padding="10" Margin="0,5,0,5">
+                                <Image Source="{Binding Url}" Aspect="AspectFill" HeightRequest="200" />
+                            </Frame>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>
