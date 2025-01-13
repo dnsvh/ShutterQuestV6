@@ -29,6 +29,9 @@ namespace ShutterQuestV6
                 // Initialize the database, including default assignments
                 await _databaseService.InitializeDatabaseAsync();
 
+                // Assign the "Explore Nature" assignment to the test user
+                await _databaseService.AssignDefaultAssignmentToUser("testaccount@mail.com", "Explore Nature");
+
                 var userIdString = await SecureStorage.Default.GetAsync("loggedInUserId");
 
                 if (!string.IsNullOrEmpty(userIdString) && int.TryParse(userIdString, out int userId))
