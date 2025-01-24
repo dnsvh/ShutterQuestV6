@@ -28,6 +28,8 @@ namespace ShutterQuestV6
             {
                 await _databaseService.InitializeDatabaseAsync();
 
+                await _databaseService.AssignDefaultAssignmentToUser("testaccount@mail.com", "Explore Nature");
+
 
                 var userIdString = await SecureStorage.Default.GetAsync("loggedInUserId");
 
